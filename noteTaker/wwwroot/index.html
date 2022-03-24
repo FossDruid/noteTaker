@@ -1,0 +1,57 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<style>
+    table,th, td{
+        border:1px solid black;
+    }
+</style>
+<body>
+    <h1>This is a Heading</h1>
+    <p id="taskDataArr">View task data</p>
+    <div id="TaskContainer">
+        <!--  append tasks here for test  -->
+    </div>
+
+    <table id="="TaskTable>
+        <tr id="tableVariables">
+            <th>ID</th>
+            <th>Title</th>
+            <th>Note</th>
+        </tr>
+    </table>
+    <script>
+        const app = document.getElementById('app');
+        const apiUrl = 'https://localhost:7013/api/note'
+        var taskContainer = document.getElementById("TaskContainer");
+
+        // Reformat this, works for now
+        async function getTaskData() {
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+            const dataParsed = JSON.stringify(data);
+
+            var tasksTable = document.getElementById("TaskTable");
+
+            console.log(data);
+            console.log(dataParsed);
+            alert(JSON.stringify(data));
+            //document.getElementById("taskDataArr").textContent = data.join(', ');
+            document.getElementById("taskDataArr").textContent = data[0]["title"]+ ": " + data[0]["noteText"];
+            for (let i in data) {
+                var taskString = "Task id: "+ data[i]["id"] + "  |  " + data[i]["title"] + ": " + data[i]["noteText"];
+                var nParagraph = document.createElement('p');
+                nParagraph.setAttribute("style", "border: 0.5px solid black;");
+                nParagraph.innerHTML = taskString;
+                TaskContainer.appendChild(nParagraph);
+            }
+
+        }
+        getTaskData();
+
+    </script>
+
+</body>
+</html> 
