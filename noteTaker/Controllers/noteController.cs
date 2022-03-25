@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Cors;
+﻿//  noteController API.  Supports GET, POST, PUT, DELETE
+
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,11 +17,10 @@ namespace noteTaker.Controllers
         {
             this.dataContext = dataContext;
         }
-        
+
         [HttpGet("getNote")]
         public async Task<ActionResult<List<note>>> Get()
         {
-            //return Ok(userNotes);
             return Ok(await this.dataContext.notes.ToListAsync());
         }
         
@@ -55,8 +56,6 @@ namespace noteTaker.Controllers
 
             return Ok(await this.dataContext.notes.ToListAsync());
         }
-
-
 
         [HttpDelete("Delete{id}")]
         public async Task<ActionResult<List<note>>> Delete(int id)

@@ -1,4 +1,6 @@
- <!DOCTYPE html>
+<!--  js into seperate file and convert from this file to betterIndex.html-->
+
+<!DOCTYPE html>
 <html>
 <head>
 <title>Note Taker</title>
@@ -66,22 +68,22 @@
         document.getElementById("deleteNoteBtn").addEventListener("click", deleteNoteId);
         document.getElementById("editNoteBtn").addEventListener("click", editNote);
 
+        // might not need
         const app = document.getElementById('app');
         const apiUrl = 'https://localhost:7013/api/note/getNote'
+
         var taskContainer = document.getElementById("TaskContainer");
 
-        // Get notes with FETCH
+        // Get notes with FETCH. Need to Reformat this with promises, prettier.
         async function getTaskData() {
             const response = await fetch(apiUrl);
             const data = await response.json();
             const dataParsed = JSON.stringify(data);
-
             var tasksTable = document.getElementById("TaskTable");
 
             console.log(data);
             console.log(dataParsed);
-
-            // HTML VIEW DATA
+            // HTML VIEW DATA.  bug to fix:  Sometimes notes don't display, but do so after n attempts on click.  (Because of formatting and lack of location.reload() maybe?)
             for (let i in data) {
                 var taskString = "Task id: " + data[i]["id"] + "  |  " + data[i]["title"] + ": " + data[i]["noteText"];
                 var nParagraph = document.createElement('p');
@@ -91,7 +93,7 @@
             }
         }
 
-
+        // TODO:  Add more promises.  Maybe alert upon badreq?  id being a string forexample
         //  POST new note
         async function postNewNote() {
             console.log("BUTTON")
@@ -111,8 +113,8 @@
                 .then(json => console.log())
                 .catch(error => console.log(error))
             console.log("DATA ADDED");
+            getTaskData();
             location.reload();
-
         }
 
         // Edit note by id with PUT
@@ -134,10 +136,11 @@
                 .then(json => console.log())
                 .catch(error => console.log(error))
             console.log("DATA EDITED");
+            getTaskData();
             location.reload();
 
         }
-
+        // DELETE note by id
         function deleteNoteId() {
             console.log("Deleting note");
             const id = document.getElementById("noteDeleteIdText").value
@@ -146,8 +149,10 @@
                 method: 'DELETE',
             })
                 .then(response => response.text())
+                .catch(error => alert(error))
+            getTaskData();
             location.reload();
-        }
+        } 
 
         getTaskData();
     </script>
