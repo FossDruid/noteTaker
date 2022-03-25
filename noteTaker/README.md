@@ -1,5 +1,5 @@
-﻿#  Note manager  
-Welcome to Note Manager, a simple web-application where you can track Tasks written in C#.NET core and Javascript.
+﻿#  Note Taker
+Welcome to Note Taker, a simple web-application where you can track Tasks written in C#.NET core and Javascript.
 
 ##  Setup  
 This application uses sqlite3 for its database, so remember to add sqlite3 to your path.
