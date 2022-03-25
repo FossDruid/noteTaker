@@ -87,8 +87,8 @@
                 nParagraph.innerHTML = taskString;
                 TaskContainer.appendChild(nParagraph);
             }
-
         }
+
 
         //  POST new note
         async function postNewNote() {
@@ -108,7 +108,9 @@
                 .then(response => response.json())
                 .then(json => console.log())
                 .catch(error => console.log(error))
-            alert("DATA ADDED");
+            console.log("DATA ADDED");
+            location.reload();
+
         }
 
         // Edit note by id with PUT
@@ -129,7 +131,9 @@
                 .then(response => response.json())
                 .then(json => console.log())
                 .catch(error => console.log(error))
-            alert("DATA EDITED");
+            console.log("DATA EDITED");
+            location.reload();
+
         }
 
         function deleteNoteId() {
@@ -140,11 +144,10 @@
                 method: 'DELETE',
             })
                 .then(response => response.text())
+            location.reload();
         }
 
         getTaskData();
-
-
     </script>
 
 </body>
