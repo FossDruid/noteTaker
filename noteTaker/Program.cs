@@ -1,7 +1,14 @@
 /* TODO 
 - Issues with CORS and wamp, fix.  For now refer to Swagger for testing API and webroot/index.html (works).
-- Make startup.cs
-- Convert index.html from paragraphs to table!!
+- Make a startup.cs
+- Switch to axios (maybe)
+- Convert index.html paragraphs to table.
+- Make the html dynamic.  Form with edit and delete buttons ( currently very static ).
+
+
+*Maybe
+- Maybe add "date created" for notes.
+- FE framework?
  */
 
 global using noteTaker.Models;

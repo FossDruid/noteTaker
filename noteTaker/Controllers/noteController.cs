@@ -16,14 +16,14 @@ namespace noteTaker.Controllers
             this.dataContext = dataContext;
         }
         
-        [HttpGet]
+        [HttpGet("getNote")]
         public async Task<ActionResult<List<note>>> Get()
         {
             //return Ok(userNotes);
             return Ok(await this.dataContext.notes.ToListAsync());
         }
         
-        [HttpGet("{id}")]
+        [HttpGet("getNote{id}")]
         public async Task<ActionResult<note>> Get(int id)
         {                            
             var note = await this.dataContext.notes.FindAsync(id);
@@ -32,7 +32,7 @@ namespace noteTaker.Controllers
             return Ok(note);
         }   
                            
-        [HttpPost]
+        [HttpPost("postNote")]
         public async Task<ActionResult<List<note>>> AddNote(note userNote)
         {
             this.dataContext.notes.Add(userNote);
@@ -41,13 +41,13 @@ namespace noteTaker.Controllers
             return Ok(await this.dataContext.notes.ToListAsync());
         }
 
-        [HttpPut]
+        [HttpPut("putNote")]
         public async Task<ActionResult<List<note>>> UpdateNote(note request)
         {
             var notes = await this.dataContext.notes.FindAsync(request.id);
             if (notes == null)
                 return BadRequest($"Note id {request.id} not found, bad id.  Try another id.");
-
+    
             notes.title = request.title;
             notes.noteText = request.noteText;
 
@@ -56,7 +56,9 @@ namespace noteTaker.Controllers
             return Ok(await this.dataContext.notes.ToListAsync());
         }
 
-        [HttpDelete("{id}")]
+
+
+        [HttpDelete("Delete{id}")]
         public async Task<ActionResult<List<note>>> Delete(int id)
         {
             var notes = await this.dataContext.notes.FindAsync(id);
