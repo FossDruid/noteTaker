@@ -26,27 +26,49 @@
     <hr />
     <form>
         <h4>New Note</h4>
-        <label for="fTitle">Note title </label><br>
+        <label for="fNewTitle">Note title </label><br>
         <input type="text" id="noteTitleInput" name="fname" value="Note Title"><br>
+
         <label for="fText">Note Text</label><br>
         <textarea id="noteTextInput" cols="50" rows="4">Note description goes here...</textarea>
         <button type="button" id="newNoteBtn">Submit</button>
-        
     </form>
+    <hr />
+
+    <form>
+        <h4>Edit Note</h4>
+        <label for="fNoteId">Enter note Id</label><br>
+        <input type="text" id="noteId" name="fname" value=""><br>
+
+        <label for="fTitle">Edit note</label><br>
+        <input type="text" id="editTitleInput" name="fname" value="New title"><br>
+
+        <label for="fText">New note description</label><br>
+        <textarea id="editNoteTextInput" cols="50" rows="4">New description</textarea>
+
+        <button type="button" id="editNoteBtn">Submit Edit</button>
+    </form>
+
 
     <hr />
 
     <h4>Delete Note</h4>
+    <label for"fDeleteTitle">Input note id for deletion</label>
+    <input type="text" id="noteDeleteIdText" name="fDeleteTitle" value="" />
+    <button type="button" id="deleteNoteBtn">Delete</button>
 
+    <hr />
 
     <script>
         document.getElementById("newNoteBtn").addEventListener("click", postNewNote);
+        document.getElementById("deleteNoteBtn").addEventListener("click", deleteNoteId);
+        document.getElementById("editNoteBtn").addEventListener("click", editNote);
 
         const app = document.getElementById('app');
         const apiUrl = 'https://localhost:7013/api/note/getNote'
         var taskContainer = document.getElementById("TaskContainer");
 
-        // Reformat this, works for now
+        // Get notes with FETCH
         async function getTaskData() {
             const response = await fetch(apiUrl);
             const data = await response.json();
@@ -68,6 +90,7 @@
 
         }
 
+        //  POST new note
         async function postNewNote() {
             console.log("BUTTON")
             var postData = JSON.stringify({
@@ -86,13 +109,41 @@
                 .then(json => console.log())
                 .catch(error => console.log(error))
             alert("DATA ADDED");
-
-
         }
 
+        // Edit note by id with PUT
+        function editNote() {
+            console.log("EDIT BUTTON")
+            var editData = JSON.stringify({
+                "id": document.getElementById("noteId").value,
+                "title": document.getElementById("editTitleInput").value,
+                "noteText": document.getElementById("editNoteTextInput").value
+            });
+            fetch('/api/note/putNote', {
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: editData
+            })
+                .then(response => response.json())
+                .then(json => console.log())
+                .catch(error => console.log(error))
+            alert("DATA EDITED");
+        }
+
+        function deleteNoteId() {
+            console.log("Deleting note");
+            const id = document.getElementById("noteDeleteIdText").value
+            console.log(id);
+            fetch('/api/note/Delete' + id, {
+                method: 'DELETE',
+            })
+                .then(response => response.text())
+        }
 
         getTaskData();
-        
+
 
     </script>
 
