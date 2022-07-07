@@ -5,7 +5,7 @@ NoteTaker C# webapi
 Welcome to Note Taker, a simple web-application where you can track Tasks written in C#.NET core and Javascript.
 
 ## Issues
-This was made very quickly as a test and is going to be completely remade in the future. Bad promises, prettier frontend is in the works.
+This was made very quickly as a test and is going to be completely remade in the future. Bad promises, no unit testing, aswell as a whole myriad of other issues. Prettier frontend is in the works (betterIndex.html and betterIndexStyling.css). It however is fully functional! 
 
 ##  Setup  
 This application uses sqlite3 for its database, so remember to add sqlite3 to your path.
